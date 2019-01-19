@@ -22,7 +22,7 @@ using UnitExtensions = Ensage.SDK.Extensions.UnitExtensions;
 
 namespace wtf
 {
-    [ExportPlugin(name: "wtf.nec", author: "rozbo", version: "0.0.2.0", units: HeroId.npc_dota_hero_necrolyte)]
+    [ExportPlugin(name: "wtf.nec", author: "rozbo", version: "0.0.3.0", units: HeroId.npc_dota_hero_necrolyte)]
     internal class Necrophos : Plugin
     {
         [ImportingConstructor]
@@ -174,8 +174,8 @@ namespace wtf
                 _ranges.AddItem(new MenuItem("blue", "Blue").SetValue(new Slider(255, 0, 255)).SetFontColor(Color.Blue));
                 Menu.AddSubMenu(_ranges);
 
-
-                
+                Menu.AddItem(new MenuItem("Killsteal Key", "Killsteal Key").SetValue(new KeyBind(32, KeyBindType.Press)));
+             
                 Menu.AddItem(new MenuItem("autoDisable", "Auto disable/counter enemy").SetValue(true));
                 Menu.AddItem(new MenuItem("autoKillsteal", "Auto killsteal enemy").SetValue(true));
                 Menu.AddToMainMenu();
@@ -847,7 +847,7 @@ namespace wtf
                 if (Menu.Item("autoKillsteal").GetValue<bool>()
                     && Owner.IsAlive
                     && Owner.IsVisible
-                    //&&!Game.IsKeyDown(Menu.Item("Combo Key").GetValue<KeyBind>().Key)
+                    &&!Game.IsKeyDown(Menu.Item("Killsteal Key").GetValue<KeyBind>().Key)
                     )
                 {
                     if (e.Health < GetComboDamageByDistance(e)
@@ -883,27 +883,6 @@ namespace wtf
                                 Owner.Attack(e);
                             }
 
-                            if (Soulring != null && Soulring.CanBeCasted() 
-                                && e.NetworkPosition.Distance2D(Owner) < 2500
-                                && magicimune
-                                && !OneHitLeft(e)
-                                && (((Veil == null 
-                                || !Veil.CanBeCasted() 
-                                || e.Modifiers.Any(y => y.Name == "modifier_item_veil_of_discord_debuff")) 
-                                && e.NetworkPosition.Distance2D(Owner) <= 1600 + Castrange) 
-                                || ((e.NetworkPosition.Distance2D(Owner) > 1600 + Castrange) 
-                                && (e.Health < (int)GetRocketDamage() * (1 - e.MagicDamageResist))))
-                                && (((Ethereal == null 
-                                || (Ethereal != null 
-                                && !Ethereal.CanBeCasted()) 
-                                || IsCasted(Ethereal)) 
-                                && e.NetworkPosition.Distance2D(Owner) <= 800 + Castrange) 
-                                || ((e.NetworkPosition.Distance2D(Owner) > 800 + Castrange)
-                                && (e.Health < (int)GetRocketDamage() * (1 - e.MagicDamageResist)))))
-                            {
-                                Soulring.UseAbility();
-                            }
-                                
                             if (Veil != null && Veil.CanBeCasted()
                                 && magicimune
                                 && e.NetworkPosition.Distance2D(Owner) <= 1600 + Castrange + Ensage_error
