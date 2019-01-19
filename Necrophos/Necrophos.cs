@@ -177,7 +177,6 @@ namespace wtf
                 Menu.AddItem(new MenuItem("Killsteal Key", "Killsteal Key").SetValue(new KeyBind(32, KeyBindType.Press)));
              
                 Menu.AddItem(new MenuItem("autoDisable", "Auto disable/counter enemy").SetValue(true));
-                Menu.AddItem(new MenuItem("autoKillsteal", "Auto killsteal enemy").SetValue(true));
                 Menu.AddToMainMenu();
 
                 Orbwalking.Load();
@@ -844,8 +843,7 @@ namespace wtf
                 }
 
                 //自动抢人头
-                if (Menu.Item("autoKillsteal").GetValue<bool>()
-                    && Owner.IsAlive
+                if (Owner.IsAlive
                     && Owner.IsVisible
                     &&Game.IsKeyDown(Menu.Item("Killsteal Key").GetValue<KeyBind>().Key)
                     )
