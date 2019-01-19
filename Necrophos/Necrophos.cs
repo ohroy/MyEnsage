@@ -847,7 +847,7 @@ namespace wtf
                 if (Menu.Item("autoKillsteal").GetValue<bool>()
                     && Owner.IsAlive
                     && Owner.IsVisible
-                    &&!Game.IsKeyDown(Menu.Item("Killsteal Key").GetValue<KeyBind>().Key)
+                    &&Game.IsKeyDown(Menu.Item("Killsteal Key").GetValue<KeyBind>().Key)
                     )
                 {
                     if (e.Health < GetComboDamageByDistance(e)
