@@ -84,20 +84,15 @@ namespace wtf.Parts
                         && ult.CanHit(target))
                     {
                         ult.UseAbility(target);
-                        Console.WriteLine($"{ult.GetCastDelay(target)}");
                         await Await.Delay(ult.GetCastDelay(target) + 200, token);
-                        Console.WriteLine($"---");
                     }
 
                     var pulse = _abilities.Pulse;
                     if (pulse.CanBeCasted
                         && pulse.CanHit(target))
                     {
-                        Console.WriteLine("一技能!");
                         pulse.UseAbility();
-                        Console.WriteLine($"{pulse.GetCastDelay(target)}");
                         await Await.Delay(pulse.GetCastDelay(target), token);
-                        Console.WriteLine("完了!");
                     }
 
                     // Veil
@@ -137,7 +132,6 @@ namespace wtf.Parts
                         && dagon.CanBeCasted
                         && dagon.CanHit(target))
                     {
-                        Console.WriteLine("大根!");
                         dagon.UseAbility(target);
                         await Await.Delay(dagon.GetCastDelay(target), token);
                     }
