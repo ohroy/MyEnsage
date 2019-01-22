@@ -17,6 +17,8 @@ namespace wtf.Parts
 
         [Import("satellite")]
         private Satellite _satellite;
+        [Import("menu")]
+        private Menu _menu;
         [ImportingConstructor]
         public Render([Import] IServiceContext context)
         {
@@ -37,8 +39,10 @@ namespace wtf.Parts
         {
             Drawing.DrawText(text, "Arial", pos, new Vector2(21), color, FontFlags.None);
         }
-        private void OnDraw(EventArgs args)
+
+        private void showHpBar()
         {
+
             foreach (var data in _satellite.DamageList)
             {
                 var target = data.GetTarget;
@@ -77,6 +81,15 @@ namespace wtf.Parts
                     }
                 }
             }
+        }
+
+        private void OnDraw(EventArgs args)
+        {
+            if (_menu.IsShowHpBarEnabled)
+            {
+                showHpBar();
+            }
+
         }
     }
 }

@@ -159,6 +159,13 @@ namespace wtf.Parts
                         dagon.UseAbility(target);
                         await Await.Delay(dagon.GetCastDelay(target), token);
                     }
+
+                    if (_owner.CanAttack(target))
+                    {
+                        _owner.Attack(target);
+                    }
+
+
                 }
                 else
                 {
