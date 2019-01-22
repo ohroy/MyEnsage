@@ -24,6 +24,8 @@ namespace wtf.Parts
         public MenuItem<bool> IsAutoKillStealEnabled;
         public MenuItem<bool> IsShowHpBarEnabled;
 
+        public MenuItem<bool> UltFirstEnabled;
+
         private Dictionary<string, bool> ComboItems { get; } = new Dictionary<string, bool>
         {
             { "item_blink",true},
@@ -80,7 +82,11 @@ namespace wtf.Parts
             //_factory.Item("Killsteal Key", new KeyBind(32));
             //_factory.Item("autoDisable", true);
             IsShowHpBarEnabled = _factory.Item("Show HpBar", true);
-            IsAutoKillStealEnabled = _factory.Item("Auto Killsteal", true);
+
+            var ksMenu= _factory.Menu("Auto Killsteal");
+
+            IsAutoKillStealEnabled = ksMenu.Item("Auto Killsteal", true);
+            UltFirstEnabled= ksMenu.Item("ult first", false);
 
         }
     }

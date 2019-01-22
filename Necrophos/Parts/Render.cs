@@ -9,6 +9,7 @@ using Ensage.Common;
 using Ensage.SDK.Renderer;
 using Ensage.SDK.Service;
 using SharpDX;
+using wtf.Models;
 using Color = System.Drawing.Color;
 
 
@@ -50,16 +51,18 @@ namespace wtf.Parts
 
         private void showHpBar()
         {
-
-            foreach (var data in _satellite.DamageList)
+            Damage[] damageList=new Damage[_satellite.DamageList.Count];
+            _satellite.DamageList.CopyTo(damageList);
+            foreach (var data in damageList)
             {
                 var target = data.GetTarget;
                 var hpBarPosition = HUDInfo.GetHPbarPosition(target);
                 if (!hpBarPosition.IsZero)
                 {
                     var hpBarSizeX = HUDInfo.GetHPBarSizeX(target);
-                    var hpBarSizeY = HUDInfo.GetHpBarSizeY(target) / 1.7f;
-                    var hpBarPos = hpBarPosition + new Vector2(1, hpBarSizeY * (84 / 70f));
+                    var hpBarSizeY = HUDInfo.GetHpBarSizeY(target);
+                    var myHudSizeY = HUDInfo.GetHpBarSizeY(target)*0.5f;
+                    var hpBarPos = hpBarPosition + new Vector2(1, hpBarSizeY *0.5f);
 
                     var health = data.GetHealth;
                     var readyDamage = data.GetReadyDamage;
@@ -73,7 +76,7 @@ namespace wtf.Parts
                         var readyDamagePosition = new Vector2(hpBarPos.X + hpBarSizeX * readyDamagePos, hpBarPos.Y);
                         //计算预计伤害的长度hpBarSizeX*readyDamageBar，防止溢出,要减去溢出的伤害血量
                         //这是一种取巧的写法，普通应该是判断溢出直接等同于当前血量的终点
-                        var readyDamageSize = new Vector2(hpBarSizeX * (readyDamageBar + Math.Min(health - readyDamage, 0) / target.MaximumHealth), hpBarSizeY);
+                        var readyDamageSize = new Vector2(hpBarSizeX * (readyDamageBar + Math.Min(health - readyDamage, 0) / target.MaximumHealth), myHudSizeY);
                         var readyDamageColor = (readyDamage-health) < 0 ? Color.FromArgb(200, 100, 0,0 ) : Color.FromArgb(200,191, 255, 0);
                         var rect = new RectangleF(readyDamagePosition.X, readyDamagePosition.Y, readyDamageSize.X,
                             readyDamageSize.Y);
@@ -86,7 +89,7 @@ namespace wtf.Parts
                     {
                         var damagePos = Math.Max(health - damage, 0) / target.MaximumHealth;
                         var damagePosition = new Vector2(hpBarPos.X + (hpBarSizeX * damagePos), hpBarPos.Y);
-                        var damageSize = new Vector2(hpBarSizeX * (damageBar + Math.Min(health - damage, 0) / target.MaximumHealth), hpBarSizeY);
+                        var damageSize = new Vector2(hpBarSizeX * (damageBar + Math.Min(health - damage, 0) / target.MaximumHealth), myHudSizeY);
                         var damageColor = (damage - health) <0? Color.FromArgb(255,0, 255, 0) : Color.Aqua;
                         var rect = new RectangleF(damagePosition.X, damagePosition.Y, damageSize.X,
                             damageSize.Y);

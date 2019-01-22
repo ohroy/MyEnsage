@@ -333,7 +333,7 @@ namespace wtf.Parts
                     readyDamage = 0.0f;
                 }
                 //Console.WriteLine($"{damage}/{readyDamage}/{totalDamage}");
-                DamageList.Add(new Damage(target, damage, readyDamage, totalDamage, target.Health));
+                DamageList.Add(new Damage(target, damage, readyDamage, totalDamage, target.Health, abilities.ToArray()));
             }
         }
     }

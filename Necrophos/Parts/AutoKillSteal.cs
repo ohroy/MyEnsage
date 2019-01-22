@@ -72,6 +72,80 @@ namespace wtf.Parts
         }
 
 
+        private async Task MyCombo(Unit target, CancellationToken token = default(CancellationToken))
+        {
+            int delay=0;
+            var diff = (int)(50 - Game.Ping);
+            if (diff > 0)
+            {
+                delay += diff;
+            }
+            // Veil
+            var veil = _abilities.Veil;
+            if (veil != null
+                && veil.CanBeCasted
+                && veil.CanHit(target)
+                && veil.UseAbility(target))
+            {
+                delay += veil.GetHitTime(target);
+                await Await.Delay(delay, token);
+            }
+
+            // Ethereal
+            var ethereal = _abilities.Ethereal;
+            if (ethereal != null
+                && ethereal.CanBeCasted
+                && ethereal.CanHit(target)
+                && ethereal.UseAbility(target))
+            {
+                delay += ethereal.GetHitTime(target);
+                await Await.Delay(delay, token);
+            }
+            var ult = _abilities.Scythe;
+            if (ult.CanBeCasted
+                && ult.CanHit(target)
+                && ult.UseAbility(target))
+            {
+                delay += ult.GetCastDelay(target);
+                await Await.Delay(delay, token);
+            }
+            // Shivas
+            var shivas = _abilities.Shivas;
+            if (shivas != null
+                && shivas.CanBeCasted
+                && shivas.CanHit(target)
+                && shivas.UseAbility())
+            {
+                delay += shivas.GetCastDelay(target);
+                await Await.Delay(delay, token);
+            }
+
+            // Dagon
+            var dagon = _abilities.Dagon;
+            if (dagon != null
+                && dagon.CanBeCasted
+                && dagon.CanHit(target)
+                && dagon.UseAbility(target))
+            {
+                delay += dagon.GetCastDelay(target);
+                await Await.Delay(delay, token);
+            }
+            var pulse = _abilities.Pulse;
+            if (pulse.CanBeCasted
+                && pulse.CanHit(target)
+                && pulse.UseAbility())
+            {
+
+                delay += pulse.GetCastDelay(target);
+                await Await.Delay(delay, token);
+            }
+
+            if (_owner.CanAttack(target))
+            {
+                _owner.Attack(target);
+            }
+        }
+
         private async Task ExecuteAsync(CancellationToken token)
         {
             try
@@ -80,6 +154,7 @@ namespace wtf.Parts
                 {
                     return;
                 }
+
 
                 var damageCalculation = _satellite.DamageList.Where(x => (x.GetHealth - x.GetDamage) / x.GetTarget.MaximumHealth <= 0.0f).ToList();
                 _damage = damageCalculation.OrderByDescending(x => x.GetHealth).OrderByDescending(x => x.GetTarget.Player.Kills).FirstOrDefault();
@@ -103,69 +178,21 @@ namespace wtf.Parts
 
                 if (!target.IsBlockingAbilities())
                 {
-                    var ult = _abilities.Scythe;
-                    if (ult.CanBeCasted
-                        && ult.CanHit(target))
+                    if (_menu.UltFirstEnabled)
                     {
-                        ult.UseAbility(target);
-                        await Await.Delay(ult.GetCastDelay(target) + 200, token);
+                        await MyCombo(target, token);
                     }
-
-                    var pulse = _abilities.Pulse;
-                    if (pulse.CanBeCasted
-                        && pulse.CanHit(target))
+                    else
                     {
-                        pulse.UseAbility();
-                        await Await.Delay(pulse.GetCastDelay(target), token);
-                    }
 
-                    // Veil
-                    var veil = _abilities.Veil;
-                    if (veil != null
-                        && veil.CanBeCasted
-                        && veil.CanHit(target))
-                    {
-                        veil.UseAbility(target.Position);
-                        await Await.Delay(veil.GetCastDelay(target.Position), token);
-                    }
-
-                    // Ethereal
-                    var ethereal = _abilities.Ethereal;
-                    if (ethereal != null
-                        && ethereal.CanBeCasted
-                        && ethereal.CanHit(target))
-                    {
-                        ethereal.UseAbility(target);
-                        _helper.MultiSleeper.Sleep(ethereal.GetHitTime(target), "ethereal");
-                        await Await.Delay(ethereal.GetCastDelay(target), token);
-                    }
-
-                    // Shivas
-                    var shivas = _abilities.Shivas;
-                    if (shivas != null
-                        && shivas.CanBeCasted
-                        && shivas.CanHit(target))
-                    {
-                        shivas.UseAbility();
-                        await Await.Delay(shivas.GetCastDelay(), token);
-                    }
-
-                        // Dagon
-                    var dagon = _abilities.Dagon;
-                    if (dagon != null
-                        && dagon.CanBeCasted
-                        && dagon.CanHit(target))
-                    {
-                        dagon.UseAbility(target);
-                        await Await.Delay(dagon.GetCastDelay(target), token);
+                        Combo combo = new Combo(_damage.ComboAbility);
+                        await combo.Execute(target, token);
                     }
 
                     if (_owner.CanAttack(target))
                     {
                         _owner.Attack(target);
                     }
-
-
                 }
                 else
                 {
