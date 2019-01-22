@@ -88,16 +88,24 @@ namespace wtf.Parts
             else
             {
                 UpdateManager.Unsubscribe(onUpdate);
+                freeParticle();
             }
         }
 
-
+        private void freeParticle()
+        {
+            _particleManager.Remove("ult_range");
+            _particleManager.Remove("blink_range");
+            _particleManager.Remove("pulse_range");
+        }
 
 
 
         public void Uninstall()
         {
             _menu.DrawEnabled.PropertyChanged -= isDrawChanged;
+            UpdateManager.Unsubscribe(onUpdate);
+            freeParticle();
         }
     }
 }

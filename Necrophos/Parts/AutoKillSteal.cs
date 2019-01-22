@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
@@ -30,6 +31,10 @@ namespace wtf.Parts
         private Satellite _satellite;
         [Import("abilities")]
         private Abilities _abilities;
+        [Import("menu")]
+        private Menu _menu;
+
+
         [ImportingConstructor]
         public  AutoKillSteal([Import] IServiceContext context)
         {
@@ -39,15 +44,34 @@ namespace wtf.Parts
         public void Install()
         {
             _handler = UpdateManager.Run(ExecuteAsync, true, false);
-            _handler.RunAsync();
             //主逻辑检测当前目标是不是已经挂了，如果挂了就停止
-            _update= UpdateManager.Subscribe(Stop, 0, false);
+            _menu.IsAutoKillStealEnabled.PropertyChanged += IsAutoKillStealChanged;
+            IsAutoKillStealChanged(null, null);
         }
 
         public void Uninstall()
         {
+            _menu.IsAutoKillStealEnabled.PropertyChanged -= IsAutoKillStealChanged;
             _handler?.Cancel();
+            UpdateManager.Unsubscribe(Stop);
         }
+
+
+        private void IsAutoKillStealChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (_menu.IsAutoKillStealEnabled)
+            {
+                _handler.RunAsync();
+                _update = UpdateManager.Subscribe(Stop, 0, false);
+            }
+            else
+            {
+                _handler?.Cancel();
+                UpdateManager.Unsubscribe(Stop);
+            }
+        }
+
+
         private async Task ExecuteAsync(CancellationToken token)
         {
             try

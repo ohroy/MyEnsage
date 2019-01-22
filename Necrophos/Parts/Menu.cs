@@ -19,6 +19,9 @@ namespace wtf.Parts
         public MenuItem<bool> DrawUltEnabled;
         public MenuItem<bool> DrawBlinkEnabled;
 
+
+
+        public MenuItem<bool> IsAutoKillStealEnabled;
         private Dictionary<string, bool> ComboItems { get; } = new Dictionary<string, bool>
         {
             { "item_blink",true},
@@ -72,8 +75,9 @@ namespace wtf.Parts
             DrawPulseEnabled=drawMenu.Item("Pulse Range", true);
             DrawUltEnabled=drawMenu.Item("Ult Range", true);
 
-            _factory.Item("Killsteal Key", new KeyBind(32));
-            _factory.Item("autoDisable", true);
+            //_factory.Item("Killsteal Key", new KeyBind(32));
+            //_factory.Item("autoDisable", true);
+            IsAutoKillStealEnabled= _factory.Item("Auto Killsteal", true);
         }
     }
 }
