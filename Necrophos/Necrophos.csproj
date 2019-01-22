@@ -49,6 +49,7 @@
     <Compile Include="Item.cs" />
     <Compile Include="Models\Damage.cs" />
     <Compile Include="Parts\AutoKillSteal.cs" />
+    <Compile Include="Parts\ParticleManager.cs" />
     <Compile Include="Parts\Render.cs" />
     <Compile Include="Parts\Menu.cs" />
     <Compile Include="Parts\Satellite.cs" />

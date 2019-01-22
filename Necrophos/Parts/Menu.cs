@@ -13,6 +13,11 @@ namespace wtf.Parts
     {
         private MenuFactory _factory;
         public MenuItem<AbilityToggler> ItemToggler;
+        
+        public MenuItem<bool> DrawEnabled;
+        public MenuItem<bool> DrawPulseEnabled;
+        public MenuItem<bool> DrawUltEnabled;
+        public MenuItem<bool> DrawBlinkEnabled;
 
         private Dictionary<string, bool> ComboItems { get; } = new Dictionary<string, bool>
         {
@@ -62,9 +67,10 @@ namespace wtf.Parts
             defenseMenu.Item("DefenseSkills", new AbilityToggler(DefenseSkills));
 
             var drawMenu = _factory.Menu("Drawing");
-            drawMenu.Item("Blink Range", true);
-            drawMenu.Item("Pulse Range", true);
-            drawMenu.Item("Ult Range", true);
+            DrawEnabled = drawMenu.Item("Draw", true);
+            DrawBlinkEnabled =drawMenu.Item("Blink Range", true);
+            DrawPulseEnabled=drawMenu.Item("Pulse Range", true);
+            DrawUltEnabled=drawMenu.Item("Ult Range", true);
 
             _factory.Item("Killsteal Key", new KeyBind(32));
             _factory.Item("autoDisable", true);

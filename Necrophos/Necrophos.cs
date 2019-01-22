@@ -22,6 +22,7 @@ using wtf.Models;
 using wtf.Parts;
 using AbilityId = Ensage.AbilityId;
 using Menu = Ensage.Common.Menu.Menu;
+using ParticleManager = wtf.Parts.ParticleManager;
 using UnitExtensions = Ensage.SDK.Extensions.UnitExtensions;
 
 namespace wtf
@@ -59,9 +60,8 @@ namespace wtf
         private AutoKillSteal _autoKillSteal;
 
 
-
-
-
+        [Import("particle_manager")]
+        private ParticleManager _particleManager;
 
 
         protected override void OnActivate()
@@ -71,6 +71,7 @@ namespace wtf
             _satellite.Install();
             _render.Install();
             _autoKillSteal.Install();
+            _particleManager.Install();
         }
 
         protected override void OnDeactivate()
@@ -80,6 +81,7 @@ namespace wtf
             _satellite?.Uninstall();
             _render?.Uninstall();
             _autoKillSteal?.Uninstall();
+            _particleManager?.Uninstall();
         }
 
     }
