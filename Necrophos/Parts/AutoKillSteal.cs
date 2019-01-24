@@ -139,11 +139,6 @@ namespace wtf.Parts
                 delay += pulse.GetCastDelay(target);
                 await Await.Delay(delay, token);
             }
-
-            if (_owner.CanAttack(target))
-            {
-                _owner.Attack(target);
-            }
         }
 
         private async Task ExecuteAsync(CancellationToken token)
@@ -186,12 +181,12 @@ namespace wtf.Parts
                     {
 
                         Combo combo = new Combo(_damage.ComboAbility);
-                        await combo.Execute(target, token);
-                    }
+                        if (combo.IsInRange(target))
+                        {
+                            await combo.Execute(target, token);
+                        }
 
-                    if (_owner.CanAttack(target))
-                    {
-                        _owner.Attack(target);
+
                     }
                 }
                 else
