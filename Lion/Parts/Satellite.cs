@@ -103,7 +103,7 @@ namespace wtf.lion.Parts
 
                     if (canAttack)
                     {
-                        damageByAttack = Owner.GetAttackDamage(target, true);
+                        damageByAttack = 0; //Owner.GetAttackDamage(target, true);
                     }
 
                     // ult

@@ -11,6 +11,7 @@ using Ensage.SDK.Orbwalker;
 using Ensage.SDK.Orbwalker.Modes;
 using Ensage.SDK.Service;
 using wtf.lion.Models;
+using AbilityExtensions = Ensage.Common.Extensions.AbilityExtensions;
 using Menu = wtf.lion.Parts.Menu;
 
 namespace wtf.lion.Parts
@@ -145,6 +146,7 @@ namespace wtf.lion.Parts
                     await Await.Delay(_helper.GetAbilityWaitTime(skill1, target), token);
                     return;
                 }
+
                 // 否决
                 var nullifier = _abilities.Nullifier;
                 if (nullifier != null

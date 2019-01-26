@@ -25,7 +25,7 @@ namespace wtf.lion.Models
         private IInventoryManager _inventoryManager;
 
         //死亡脉冲
-        public lion_impale Skill1 { get; set; }
+        public Sdk.Abilities.npc_dota_hero_lion.lion_impale Skill1 { get; set; }
         //幽魂护罩
         public lion_voodoo Skill2 { get; set; }
         //蝎心光环
@@ -102,7 +102,7 @@ namespace wtf.lion.Models
         public Abilities([Import] IServiceContext context)
         {
             _owner=context.Owner as Hero;
-            _owner.Stop();
+            //_owner.Stop();
             _factory = context.AbilityFactory;
             _inventoryManager = context.Inventory;
 
@@ -110,7 +110,7 @@ namespace wtf.lion.Models
 
         public void install()
         {
-            Skill1=_factory.GetAbility<lion_impale>();
+            Skill1=new Sdk.Abilities.npc_dota_hero_lion.lion_impale(_owner.Spellbook.Spell1);
             Skill2= _factory.GetAbility<lion_voodoo>();
             Skill3 = _factory.GetAbility<lion_mana_drain>();
             Skill4 = _factory.GetAbility<lion_finger_of_death>();

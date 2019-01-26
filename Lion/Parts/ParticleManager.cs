@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.Composition;
 using Ensage;
 using Ensage.SDK.Helpers;
@@ -70,7 +71,7 @@ namespace wtf.lion.Parts
                 && _abilities.Skill1.Ability?.Level>0
                 )
             {
-                _particleManager.DrawRange(_owner, "skill1_range", _abilities.Skill1.CastRange, Color.Azure);
+                _particleManager.DrawRange(_owner, "skill1_range", _abilities.Skill1.Range+_abilities.Skill1.Radius, Color.Azure);
             }
             else
             {
