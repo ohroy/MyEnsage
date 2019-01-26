@@ -24,6 +24,21 @@ namespace wtf.lion.Sdk.Abilities.npc_dota_hero_lion
         public string TargetDelayModifierName { get; } = "modifier_lion_finger_of_death_delay";
 
 
+        private float TalentDamage
+        {
+            get
+            {
+                var dmgValue = 0f;
+                var talent = this.Owner.GetAbilityById(AbilityId.special_bonus_unique_lion_3);
+                if (talent != null && talent.Level > 0)
+                {
+                     dmgValue = talent.GetAbilitySpecialData("value");
+                }
+
+                return dmgValue;
+            }
+        }
+
         protected float BaseDamage
         {
             get
@@ -37,7 +52,7 @@ namespace wtf.lion.Sdk.Abilities.npc_dota_hero_lion
             }
         }
 
-        protected override float RawDamage => BaseDamage + ExtraDamage;
+        protected override float RawDamage => BaseDamage+ TalentDamage + ExtraDamage;
 
         public float KillCounter
         {
