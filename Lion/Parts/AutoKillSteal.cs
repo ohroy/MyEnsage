@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Ensage;
+using Ensage.Common.Threading;
+using Ensage.SDK.Abilities;
 using Ensage.SDK.Extensions;
 using Ensage.SDK.Handlers;
 using Ensage.SDK.Helpers;
@@ -66,6 +69,73 @@ namespace wtf.lion.Parts
             }
         }
 
+        private async Task<bool> tryKillStealFast(Hero target, CancellationToken token)
+        {
+
+            List<BaseAbility> abilities = new List<BaseAbility>();
+            //先尝试大招能不能秒杀
+            var ult = _abilities.Skill4;
+            if (ult.Ability.Level > 0)
+            {
+                abilities.Add(ult);
+            }
+
+            var ret = await tryKillFast(abilities, target, token);
+            if (ret)
+            {
+                return ret;
+            }
+            //不行就计算大根加大招
+            var dagon = _abilities.Dagon;
+            if (dagon != null && dagon.Ability.IsValid)
+            {
+                abilities.Add(dagon);
+            }
+            ret = await tryKillFast(abilities, target, token);
+            if (ret)
+            {
+                return ret;
+            }
+            //如果还不行加上虚灵刀
+            var ethereal = _abilities.Ethereal;
+            if (ethereal != null && ethereal.Ability.IsValid)
+            {
+                abilities.Add(ethereal);
+            }
+            ret = await tryKillFast(abilities, target, token);
+            if (ret)
+            {
+                return ret;
+            }
+
+            return false;
+        }
+
+        private async Task<bool> tryKillFast(List<BaseAbility> abilities, Hero target, CancellationToken token)
+        {
+           
+            var heroes = EntityManager<Hero>.Entities.Where(x => x.IsValid && !x.IsIllusion).ToList();
+
+            var combo = new Combo(abilities.ToArray());
+            if (combo.IsInRange(target))
+            {
+                var damage = _helper.DamageReCalc(combo.GetDamage(target), target, heroes, abilities.ToArray());
+                if (damage > target.Health)
+                {
+                    await combo.Execute(target,token);
+                    //await Await.Delay((int)200, token);
+                    Console.WriteLine(target.Health);
+
+                    return true;
+                }
+            }
+
+            return false;
+            // Dagon
+
+
+        }
+
         private async Task ExecuteAsync(CancellationToken token)
         {
             try
@@ -104,11 +174,17 @@ namespace wtf.lion.Parts
 
                 if (!target.IsBlockingAbilities())
                 {
-                        Combo combo = new Combo(_damage.ComboAbility);
-                        if (combo.IsInRange(target))
-                        {
-                            await combo.Execute(target, token);
-                        }
+
+                    var isFastKilled=await tryKillStealFast(target, token);
+                    if (isFastKilled)
+                    {
+                        return;
+                    }
+                    Combo combo = new Combo(_damage.ComboAbility);
+                    if (combo.IsInRange(target))
+                    {
+                        await combo.Execute(target, token);
+                    }
                 }
                 else
                 {

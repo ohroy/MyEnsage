@@ -120,7 +120,7 @@ namespace wtf.lion.Parts
                     && skill2.CanHit(target))
                 {
                     skill2.UseAbility(target);
-                    await Await.Delay(skill2.GetHitTime(target), token);
+                    await Await.Delay(_helper.GetAbilityWaitTime(skill2,target), token);
                     return;
                 }
                 // 羊刀
@@ -131,7 +131,7 @@ namespace wtf.lion.Parts
                     && hex.CanHit(target))
                 {
                     hex.UseAbility(target);
-                    await Await.Delay(hex.GetHitTime(target), token);
+                    await Await.Delay(_helper.GetAbilityWaitTime(hex, target), token);
                     return;
                 }
                 // 穿刺
@@ -142,7 +142,7 @@ namespace wtf.lion.Parts
                     && skill1.CanHit(target))
                 {
                     skill1.UseAbility(target);
-                    await Await.Delay(skill1.GetHitTime(target), token);
+                    await Await.Delay(_helper.GetAbilityWaitTime(skill1, target), token);
                     return;
                 }
                 // 否决
@@ -153,7 +153,7 @@ namespace wtf.lion.Parts
                     && nullifier.CanHit(target))
                 {
                     nullifier.UseAbility(target);
-                    await Await.Delay(nullifier.GetHitTime(target), token);
+                    await Await.Delay(_helper.GetAbilityWaitTime(nullifier, target), token);
                     return;
                 }
                 // RodofAtos
@@ -166,7 +166,7 @@ namespace wtf.lion.Parts
                     && !atosDebuff)
                 {
                     rodofAtos.UseAbility(target);
-                    await Await.Delay(rodofAtos.GetHitTime(target), token);
+                    await Await.Delay(_helper.GetAbilityWaitTime(rodofAtos, target), token);
                 }
 
             }
@@ -201,7 +201,7 @@ namespace wtf.lion.Parts
                     && !comboBreaker)
                 {
                     orchid.UseAbility(target);
-                    await Await.Delay(orchid.GetCastDelay(target), token);
+                    await Await.Delay(_helper.GetAbilityWaitTime(orchid, target), token);
                 }
 
                 // 血荆
@@ -213,7 +213,7 @@ namespace wtf.lion.Parts
                     && !comboBreaker)
                 {
                     bloodthorn.UseAbility(target);
-                    await Await.Delay(bloodthorn.GetCastDelay(target), token);
+                    await Await.Delay(_helper.GetAbilityWaitTime(bloodthorn, target), token);
                 }
 
                 // Veil
@@ -224,7 +224,7 @@ namespace wtf.lion.Parts
                     && veil.CanHit(target))
                 {
                     veil.UseAbility(target.Position);
-                    await Await.Delay(veil.GetCastDelay(target.Position), token);
+                    await Await.Delay(_helper.GetAbilityWaitTime(veil, target), token);
                 }
 
                 // Ethereal
@@ -236,7 +236,7 @@ namespace wtf.lion.Parts
                     && !comboBreaker)
                 {
                     ethereal.UseAbility(target);
-                    await Await.Delay(ethereal.GetHitTime(target), token);
+                    await Await.Delay(_helper.GetAbilityWaitTime(ethereal, target), token);
                 }
                 //大招
                 var skill4 = _abilities.Skill4;
@@ -246,7 +246,7 @@ namespace wtf.lion.Parts
                     && skill4.CanHit(target))
                 {
                     skill4.UseAbility(target);
-                    await Await.Delay(skill4.GetCastDelay(target), token);
+                    await Await.Delay(_helper.GetAbilityWaitTime(skill4, target), token);
                     return;
                 }
                 // Shivas
@@ -257,7 +257,7 @@ namespace wtf.lion.Parts
                     && shivas.CanHit(target))
                 {
                     shivas.UseAbility();
-                    await Await.Delay(shivas.GetCastDelay(), token);
+                    await Await.Delay(_helper.GetAbilityWaitTime(shivas, target), token);
                 }
 
                 // Dagon
@@ -269,8 +269,8 @@ namespace wtf.lion.Parts
                         && !comboBreaker)
                     {
                         dagon.UseAbility(target);
-                        await Await.Delay(dagon.GetCastDelay(target), token);
-                        return;
+                        await Await.Delay(_helper.GetAbilityWaitTime(dagon, target), token);
+                    return;
                     }
                 // UrnOfShadows
                 var urnOfShadows = _abilities.UrnOfShadows;
@@ -281,7 +281,7 @@ namespace wtf.lion.Parts
                     && !comboBreaker)
                 {
                     urnOfShadows.UseAbility(target);
-                    await Await.Delay(urnOfShadows.GetCastDelay(target), token);
+                    await Await.Delay(_helper.GetAbilityWaitTime(urnOfShadows, target), token);
                 }
 
                 // SpiritVessel
@@ -293,7 +293,7 @@ namespace wtf.lion.Parts
                     && !comboBreaker)
                 {
                     spiritVessel.UseAbility(target);
-                    await Await.Delay(spiritVessel.GetCastDelay(target), token);
+                    await Await.Delay(_helper.GetAbilityWaitTime(spiritVessel, target), token);
                 }
                 Orbwalker.OrbwalkTo(target);
             }

@@ -102,7 +102,6 @@ namespace wtf.lion.Parts
             IsShowHpBarEnabled = autoKillStealMenu.Item("Show HpBar", true);
 
             ComboKeyItem = comboMenu.Item("Combo Key", new KeyBind('D'));
-            Console.WriteLine("设置设置按钮");
         }
     }
 }
