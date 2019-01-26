@@ -118,8 +118,6 @@ namespace wtf.lion.Parts
                 var damageCalculation = new Combo(abilities.ToArray());
                 //没有计算来自装备的伤害加深
                 damageOfMisc = damageByAttack;
-                //Console.WriteLine($"{damageByAttack}/{damageByAura}/{extendUltDamage}/{DamageHelpers.GetSpellDamage(extendUltDamage, Owner.GetSpellAmplification(), damageReduction)}");
-                var livingArmor =_helper.LivingArmor(target, heroes, damageCalculation.Abilities);
                 //目前就能打死的
                 var damage = _helper.DamageReCalc(damageCalculation.GetDamage(target) + damageOfMisc, target, heroes,
                     abilities.ToArray());

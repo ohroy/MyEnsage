@@ -31,7 +31,7 @@ namespace wtf.lion.Models
         //蝎心光环
         public lion_mana_drain Skill3 { get; set; }
         //死神镰刀
-        public lion_finger_of_death Skill4 { get; set; }
+        public Sdk.Abilities.npc_dota_hero_lion.lion_finger_of_death Skill4 { get; set; }
 
         public Dagon Dagon
         {
@@ -113,7 +113,7 @@ namespace wtf.lion.Models
             Skill1=new Sdk.Abilities.npc_dota_hero_lion.lion_impale(_owner.Spellbook.Spell1);
             Skill2= _factory.GetAbility<lion_voodoo>();
             Skill3 = _factory.GetAbility<lion_mana_drain>();
-            Skill4 = _factory.GetAbility<lion_finger_of_death>();
+            Skill4 = new Sdk.Abilities.npc_dota_hero_lion.lion_finger_of_death(_owner.Spellbook.Spell4);
             UpdateManager.BeginInvoke(() =>
                 {
                     _inventoryManager.Attach(this);

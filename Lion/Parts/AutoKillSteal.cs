@@ -77,6 +77,7 @@ namespace wtf.lion.Parts
             var ult = _abilities.Skill4;
             if (ult.Ability.Level > 0)
             {
+                //Console.WriteLine($"{ult.Ability.GetAbilitySpecialDataWithTalent(_owner, "damage") }");
                 abilities.Add(ult);
             }
 
@@ -119,12 +120,14 @@ namespace wtf.lion.Parts
             var combo = new Combo(abilities.ToArray());
             if (combo.IsInRange(target))
             {
-                var damage = _helper.DamageReCalc(combo.GetDamage(target), target, heroes, abilities.ToArray());
+                var realDamage = combo.GetDamage(target);
+                var damage = _helper.DamageReCalc(realDamage, target, heroes, abilities.ToArray());
+                //Console.WriteLine($"damage:{realDamage},{damage}");
                 if (damage > target.Health)
                 {
                     await combo.Execute(target,token);
                     //await Await.Delay((int)200, token);
-                    Console.WriteLine(target.Health);
+                    //Console.WriteLine(target.Health);
 
                     return true;
                 }

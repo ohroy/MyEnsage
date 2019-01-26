@@ -8,6 +8,7 @@ using Ensage.SDK.Abilities.Components;
 using Ensage.SDK.Extensions;
 using Ensage.SDK.Helpers;
 using Ensage.SDK.Service;
+using wtf.lion.Models;
 
 namespace wtf.lion
 {
@@ -16,6 +17,8 @@ namespace wtf.lion
     {
         public MultiSleeper MultiSleeper { get; }
         private Hero Owner;
+        [Import("abilities")]
+        private Abilities _abilities;
         [ImportingConstructor]
         public Helper([Import] IServiceContext context)
         {
@@ -126,6 +129,20 @@ namespace wtf.lion
             return count * block;
         }
 
+
+        private float DamageAmplifyByItem()
+        {
+            var ampByItem = 1f;
+            var kaya = Owner.Inventory.Items.FirstOrDefault(x => x.Name.Contains("item_kaya") || x.Name.Contains("item_yasha_and_kaya") || x.Name.Contains("item_kaya_and_sange"));
+            if (kaya != null)
+            {
+                var kayaAmp = (kaya.AbilitySpecialData.First(x => x.Name == "spell_amp").Value) / 100.0f;
+
+                ampByItem *= kayaAmp;
+            }
+            return ampByItem;
+        }
+
         public float DamageReCalc(float damage, Hero target, List<Hero> heroes, IReadOnlyCollection<BaseAbility> abilities)
         {
 
@@ -136,8 +153,12 @@ namespace wtf.lion
             var damageReduction = DamageReduction(target, heroes);
             var livingArmor = LivingArmor(target, heroes, abilities);
             damage = DamageBlock(target, heroes) + damage;
+            var amp = DamageAmplifyByItem();
             return DamageHelpers.GetSpellDamage(damage, 0, damageReduction) - livingArmor;
         }
+
+
+
 
         public float DamageReduction(Hero target, List<Hero> heroes)
         {

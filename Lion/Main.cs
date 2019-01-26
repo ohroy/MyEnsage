@@ -8,7 +8,7 @@ using ParticleManager = wtf.lion.Parts.ParticleManager;
 
 namespace wtf.lion
 {
-    [ExportPlugin(name: "wtf.lion", author: "rozbo", version: "1.3.0.0", units: HeroId.npc_dota_hero_lion)]
+    [ExportPlugin(name: "wtf.lion", author: "rozbo", version: "1.4.0.0", units: HeroId.npc_dota_hero_lion)]
     internal class Lion : Plugin
     {
 

@@ -56,6 +56,7 @@
     <Compile Include="Parts\TargetSelector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Main.cs" />
+    <Compile Include="Sdk\Abilities\npc_dota_hero_lion\lion_finger_of_death.cs" />
     <Compile Include="Sdk\Abilities\npc_dota_hero_lion\lion_impale.cs" />
   </ItemGroup>
   <ItemGroup />
