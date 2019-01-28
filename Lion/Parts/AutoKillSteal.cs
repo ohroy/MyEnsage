@@ -191,7 +191,15 @@ namespace wtf.lion.Parts
                 }
                 else
                 {
-                   // Config.LinkenBreaker.Handler.RunAsync();
+                    var skill3 = _abilities.Skill3;
+                    if (skill3 != null
+                        //&& _menu.AbilityToggler.Value.IsEnabled(skill3.ToString())
+                        && skill3.CanBeCasted
+                        && skill3.CanHit(target))
+                    {
+                        skill3.UseAbility(target);
+                        await Await.Delay(_helper.GetAbilityWaitTime(skill3, target), token);
+                    }
                 }
             }
             catch (TaskCanceledException)
