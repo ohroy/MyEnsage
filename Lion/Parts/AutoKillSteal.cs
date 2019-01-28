@@ -123,7 +123,7 @@ namespace wtf.lion.Parts
                 var realDamage = combo.GetDamage(target);
                 var damage = _helper.DamageReCalc(realDamage, target, heroes, abilities.ToArray());
                 //Console.WriteLine($"damage:{realDamage},{damage}");
-                if (damage > target.Health)
+                if (combo.GetEstimatedHealth(target)<0f)
                 {
                     await combo.Execute(target,token);
                     //await Await.Delay((int)200, token);
@@ -184,7 +184,7 @@ namespace wtf.lion.Parts
                         return;
                     }
                     Combo combo = new Combo(_damage.ComboAbility);
-                    if (combo.IsInRange(target))
+                    if (combo.IsInRange(target)&& combo.GetEstimatedHealth(target)<0f)
                     {
                         await combo.Execute(target, token);
                     }
