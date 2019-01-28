@@ -155,7 +155,7 @@ namespace wtf.lion.Parts
                 }
 
 
-                var damageCalculation = _satellite.DamageList.Where(x => (x.GetHealth - x.GetDamage) / x.GetTarget.MaximumHealth <= 0.0f).ToList();
+                var damageCalculation = _satellite.DamageList.Where(x => (x.GetTarget.Health - x.GetDamage) <= 0.0f).ToList();
                 _damage = damageCalculation.OrderByDescending(x => x.GetHealth).OrderByDescending(x => x.GetTarget.Player.Kills).FirstOrDefault();
 
                 if (_damage == null)
