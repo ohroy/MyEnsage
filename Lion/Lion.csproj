@@ -58,6 +58,7 @@
     <Compile Include="Main.cs" />
     <Compile Include="Sdk\Abilities\npc_dota_hero_lion\lion_finger_of_death.cs" />
     <Compile Include="Sdk\Abilities\npc_dota_hero_lion\lion_impale.cs" />
+    <Compile Include="Sdk\Abilities\npc_dota_hero_lion\lion_voodoo.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

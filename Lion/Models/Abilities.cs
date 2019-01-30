@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.Composition;
+﻿using System;
+using System.ComponentModel.Composition;
 using Ensage;
 using Ensage.SDK.Abilities;
 using Ensage.SDK.Abilities.Aggregation;
@@ -27,7 +28,7 @@ namespace wtf.lion.Models
         //死亡脉冲
         public Sdk.Abilities.npc_dota_hero_lion.lion_impale Skill1 { get; set; }
         //幽魂护罩
-        public lion_voodoo Skill2 { get; set; }
+        public Sdk.Abilities.npc_dota_hero_lion.lion_voodoo Skill2 { get; set; }
         //蝎心光环
         public lion_mana_drain Skill3 { get; set; }
         //死神镰刀
@@ -110,8 +111,9 @@ namespace wtf.lion.Models
 
         public void install()
         {
+
             Skill1=new Sdk.Abilities.npc_dota_hero_lion.lion_impale(_owner.Spellbook.Spell1);
-            Skill2= _factory.GetAbility<lion_voodoo>();
+            Skill2= new Sdk.Abilities.npc_dota_hero_lion.lion_voodoo(_owner.Spellbook.Spell2);
             Skill3 = _factory.GetAbility<lion_mana_drain>();
             Skill4 = new Sdk.Abilities.npc_dota_hero_lion.lion_finger_of_death(_owner.Spellbook.Spell4);
             UpdateManager.BeginInvoke(() =>
