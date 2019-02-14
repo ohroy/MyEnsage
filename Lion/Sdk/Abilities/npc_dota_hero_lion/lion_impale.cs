@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Ensage;
 using Ensage.SDK.Abilities;
+using Ensage.SDK.Prediction;
 
 namespace wtf.lion.Sdk.Abilities.npc_dota_hero_lion
 {
@@ -47,12 +48,25 @@ namespace wtf.lion.Sdk.Abilities.npc_dota_hero_lion
             }
         }
 
+
         protected override float BaseCastRange
         {
             get
             {
                 return this.Ability.CastRange;
             }
+        }
+
+
+        public override bool UseAbility(Unit target)
+        {
+
+            if (this.Owner.Distance2D(target) < this.CastRange)
+            {
+               return  this.Ability.UseAbility(target);
+            }
+
+            return this.UseAbility(target, HitChance.Medium); // TODO: get prediction config hitchance value
         }
     }
 }
