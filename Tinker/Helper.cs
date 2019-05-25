@@ -8,9 +8,9 @@ using Ensage.SDK.Abilities.Components;
 using Ensage.SDK.Extensions;
 using Ensage.SDK.Helpers;
 using Ensage.SDK.Service;
-using wtf.lion.Models;
+using wtf.tinker.Models;
 
-namespace wtf.lion
+namespace wtf.tinker
 {
     [Export("helper")]
     public class Helper
@@ -18,7 +18,7 @@ namespace wtf.lion
         public MultiSleeper MultiSleeper { get; }
         private Hero Owner;
         [Import("abilities")]
-        private Abilities _abilities;
+        private wtf.tinker.Models.Abilities _abilities;
         [ImportingConstructor]
         public Helper([Import] IServiceContext context)
         {
@@ -129,7 +129,7 @@ namespace wtf.lion
             return count * block;
         }
 
-        //慧光等
+
         private float DamageAmplifyByItem()
         {
             var ampByItem = 1f;
@@ -328,6 +328,26 @@ namespace wtf.lion
             }
 
             return value;
+        }
+
+
+        public float GetBonusRange()
+        {
+            var bonusRange = 0.0f;
+
+            var talent = this.Owner.Spellbook.Spells.FirstOrDefault(x => x.Level > 0 && x.Name.StartsWith("special_bonus_cast_range_"));
+            if (talent != null)
+            {
+                bonusRange += talent.GetAbilitySpecialData("value");
+            }
+
+            var aetherLens = this.Owner.GetItemById(AbilityId.item_aether_lens);
+            if (aetherLens != null)
+            {
+                bonusRange += aetherLens.GetAbilitySpecialData("cast_range_bonus");
+            }
+
+            return bonusRange;
         }
     }
 }
