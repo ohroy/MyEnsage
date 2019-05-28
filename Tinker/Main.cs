@@ -91,7 +91,7 @@ namespace wtf.tinker
 
         private string EffectPath { get; } = @"materials\ensage_ui\particles\other_range_blue.vpcf";
 
-        private Menu Menu { get; } = new Menu("TinkerFastComboPlus", "TinkerFastComboPlus", true, "npc_dota_hero_tinker", true).SetFontColor(Color.Aqua);
+        private Menu Menu { get; } = new Menu("wtf.tinker", "tinker", true, "npc_dota_hero_tinker", true).SetFontColor(Color.Aqua);
 
         private Menu _Combo { get; } = new Menu("Combo", "Combo");
 
