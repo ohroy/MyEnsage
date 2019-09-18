@@ -19,7 +19,7 @@ using SharpDX;
 
 namespace wtf.tinker
 {
-    [ExportPlugin(name: "wtf.tinker", author: "rozbo", version: "3.1.0.0", units: HeroId.npc_dota_hero_tinker)]
+    [ExportPlugin(name: "wtf.tinker", author: "rozbo", version: "3.1.0.1", units: HeroId.npc_dota_hero_tinker)]
     internal class Main : Plugin
     {
         [ImportingConstructor]
