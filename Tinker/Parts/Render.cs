@@ -19,25 +19,33 @@ namespace wtf.tinker.Parts
         [Import("menu")]
         private Menu _menu;
 
-        private readonly IRendererManager renderer;
+        private readonly IRenderManager renderer;
 
 
         [ImportingConstructor]
         public Render([Import] IServiceContext context)
         {
             //Owner = context.Owner as Hero; ;
-            renderer = context.Renderer;
+            renderer = context.RenderManager;
         }
 
 
         public void Install()
         {
-            renderer.Draw += OnDraw;
+            renderer.Draw += Renderer_Draw;
+        }
+
+        private void Renderer_Draw(IRenderer renderer)
+        {
+            if (_menu.IsShowHpBarEnabled)
+            {
+                showHpBar();
+            }
         }
 
         public void Uninstall()
         {
-            renderer.Draw -= OnDraw;
+            renderer.Draw -= Renderer_Draw;
         }
         private void Text(string text, Vector2 pos, System.Drawing.Color color)
         {
@@ -92,15 +100,6 @@ namespace wtf.tinker.Parts
                     }
                 }
             }
-        }
-
-        private void OnDraw(object sender, EventArgs eventArgs)
-        {
-            if (_menu.IsShowHpBarEnabled)
-            {
-                showHpBar();
-            }
-
         }
     }
 }
