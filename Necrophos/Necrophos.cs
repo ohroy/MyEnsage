@@ -27,7 +27,7 @@ using UnitExtensions = Ensage.SDK.Extensions.UnitExtensions;
 
 namespace wtf
 {
-    [ExportPlugin(name: "wtf.nec", author: "rozbo", version: "1.2.0.0", units: HeroId.npc_dota_hero_necrolyte)]
+    [ExportPlugin(name: "wtf.nec", author: "rozbo", version: "1.2.0.1", units: HeroId.npc_dota_hero_necrolyte)]
     internal class Necrophos : Plugin
     {
 

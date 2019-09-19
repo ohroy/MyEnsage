@@ -20,23 +20,23 @@
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Ensage">
-      <HintPath>..\..\..\..\..\Ensage\References\Ensage.dll</HintPath>
+    <Reference Include="Ensage, Version=0.0.0.1, Culture=neutral, PublicKeyToken=a41ba14f653257a6">
+      <HintPath>..\..\..\..\..\Programs\Ensage\References\Ensage.dll</HintPath>
     </Reference>
-    <Reference Include="Ensage.Common">
-      <HintPath>..\..\..\..\..\Ensage\References\Ensage.Common.dll</HintPath>
+    <Reference Include="Ensage.Common, Version=1.2.8.6, Culture=neutral, PublicKeyToken=9849de8727708dde">
+      <HintPath>..\..\..\..\..\Programs\Ensage\References\Ensage.Common.dll</HintPath>
     </Reference>
-    <Reference Include="Ensage.SDK">
-      <HintPath>..\..\..\..\..\Ensage\References\Ensage.SDK.dll</HintPath>
+    <Reference Include="Ensage.SDK, Version=1.0.0.0, Culture=neutral, PublicKeyToken=2a0bb906a796e43b">
+      <HintPath>..\..\..\..\..\Programs\Ensage\References\Ensage.SDK.dll</HintPath>
     </Reference>
-    <Reference Include="PlaySharp.Toolkit">
-      <HintPath>..\..\..\..\..\..\Ensage\References\PlaySharp.Toolkit.dll</HintPath>
+    <Reference Include="PlaySharp.Toolkit, Version=1.0.0.0, Culture=neutral, PublicKeyToken=7e3dc52b16ce4f66">
+      <HintPath>..\..\..\..\..\Programs\Ensage\References\PlaySharp.Toolkit.dll</HintPath>
     </Reference>
-    <Reference Include="SharpDX">
-      <HintPath>..\..\..\..\..\..\Ensage\References\SharpDX.dll</HintPath>
+    <Reference Include="SharpDX, Version=3.1.0.0, Culture=neutral, PublicKeyToken=7e3dc52b16ce4f66">
+      <HintPath>..\..\..\..\..\Programs\Ensage\References\SharpDX.dll</HintPath>
     </Reference>
-    <Reference Include="SharpDX.Mathematics">
-      <HintPath>..\..\..\..\..\Ensage\References\SharpDX.Mathematics.dll</HintPath>
+    <Reference Include="SharpDX.Mathematics, Version=3.1.0.0, Culture=neutral, PublicKeyToken=7e3dc52b16ce4f66">
+      <HintPath>..\..\..\..\..\Programs\Ensage\References\SharpDX.Mathematics.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
